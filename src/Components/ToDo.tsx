@@ -30,8 +30,10 @@ const ToDo = (props: Props) => {
     if (editing && node.current) {
       node.current.focus();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (enterKey && editing) {
       handlerSaveTitle();

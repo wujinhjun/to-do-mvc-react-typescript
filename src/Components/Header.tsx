@@ -13,6 +13,7 @@ const Header = (props: IProps) => {
   const escKey = useKeyboardPress("Escape");
   const enterKey = useKeyboardPress("Enter");
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (escKey) {
       setValue("");

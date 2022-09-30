@@ -40,7 +40,6 @@ const Main = (props: Props) => {
   const [editStatus, setEditStatus] = useState<string>("");
 
   const url: string = useLocation().pathname;
-  //   console.log(url.pathname);
 
   const activeItemList = ToDoList.filter((item) => !item.completed);
   const completedItemList = ToDoList.filter((item) => item.completed);
@@ -63,19 +62,17 @@ const Main = (props: Props) => {
           <label htmlFor="toggle-all" onClick={toggleAll}></label>
         )}
         <ul className="todo-list">
-          {ToDoList.map((item) => {
-            return (
-              <ToDo
-                key={item.id}
-                todo={item}
-                editing={editStatus === item.id}
-                completeToDo={completedToDoItem}
-                deleteToDo={deleteToDoItem}
-                editToDo={handleEdit}
-                changeToDo={changeToDoItem}
-              />
-            );
-          })}
+          {ToDoList.map((item) => (
+            <ToDo
+              key={item.id}
+              todo={item}
+              editing={editStatus === item.id}
+              completeToDo={completedToDoItem}
+              deleteToDo={deleteToDoItem}
+              editToDo={handleEdit}
+              changeToDo={changeToDoItem}
+            />
+          ))}
         </ul>
       </section>
       {Boolean(ToDoNumber || ToDoList.length) && (
@@ -87,18 +84,16 @@ const Main = (props: Props) => {
             <span> left</span>
           </span>
           <ul className="filters">
-            {linkObj.map((link) => {
-              return (
-                <li key={link.id}>
-                  <a
-                    href={link.route}
-                    className={url === link.route ? "selected" : ""}
-                  >
-                    {link.title}
-                  </a>
-                </li>
-              );
-            })}
+            {linkObj.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={link.route}
+                  className={url === link.route ? "selected" : ""}
+                >
+                  {link.title}
+                </a>
+              </li>
+            ))}
           </ul>
           {completedItemList.length > 0 && (
             <button onClick={clearCompletedToDo} className="clear-completed">

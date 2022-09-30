@@ -23,7 +23,7 @@ function App() {
   const [todoList, setTodoList] = useState<IToDOList>(store("todoList"));
   const todoListArr: IToDoItem[] = tranObjToArr(todoList);
 
-  const saveToDoList = (data: { [key: string]: IToDoItem }) => {
+  const saveToDoList = (data: IToDOList) => {
     store("todoList", data);
   };
 

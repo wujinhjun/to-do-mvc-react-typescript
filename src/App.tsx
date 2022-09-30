@@ -53,7 +53,6 @@ function App() {
 
   const deleteToDoItem = (itemID: string) => {
     const { [itemID]: value, ...afterDelete } = todoList;
-    // const afterDelete:IToDOList = {...todoList}
     setTodoList(afterDelete);
     saveToDoList(afterDelete);
   };
@@ -76,8 +75,8 @@ function App() {
   };
 
   const completedAllToDo = () => {
-    for (const o in todoList) {
-      completedToDoItem(o);
+    for (const item in todoList) {
+      completedToDoItem(item);
     }
   };
 

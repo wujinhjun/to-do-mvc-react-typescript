@@ -4,16 +4,14 @@ interface IObj {
     [key: string]: IToDoItem;
 }
 
-export const tranArrToObj = (arr: IToDoItem[]): IObj => {
-    return arr.reduce((result: IObj, item) => {
+export const tranArrToObj = (arr: IToDoItem[]): IObj => (
+    arr.reduce((result: IObj, item) => {
         result[item.id] = item;
         return result;
-    }, {});
-}
-
-export const tranObjToArr = (obj: IObj): IToDoItem[] => (
-    Object.keys(obj).map((item) => obj[item])
+    }, {})
 )
+
+export const tranObjToArr = (obj: IObj): IToDoItem[] => Object.keys(obj).map((item) => obj[item]);
 
 export const store = (namespace: string, data?: IObj) => {
     if (data) {

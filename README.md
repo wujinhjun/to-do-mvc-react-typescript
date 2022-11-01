@@ -12,4 +12,4 @@ Therefore, the homework maybe could be called shit. Of course, I don't know how 
 
 ***
 
-After I finished this MVC, I have a lot of feelings.It's probably been three months since I started Front-end, and I can finally make something interesting with typescript. It is memorable.
+After I finished this MVC, I have a lot of feelings. It's probably been three months since I started Front-end, and I can finally make something interesting with typescript. It is memorable.

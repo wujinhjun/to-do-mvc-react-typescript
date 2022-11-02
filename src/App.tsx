@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 import { nanoid } from "nanoid";
@@ -80,53 +80,21 @@ function App() {
     }
   };
 
+  const { hash } = useLocation();
+
   return (
     <>
       <section className="todoapp">
         <Header createNewToDo={createNewToDo} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                ToDoList={todoListArr}
-                completedToDoItem={completedToDoItem}
-                deleteToDoItem={deleteToDoItem}
-                changeToDoItem={changeToDoItem}
-                clearCompletedToDo={clearCompleted}
-                toggleAll={completedAllToDo}
-              />
-            }
-          />
-          <Route
-            path="/active"
-            element={
-              <Main
-                ToDoList={todoListArr.filter((item) => !item.completed)}
-                completedToDoItem={completedToDoItem}
-                deleteToDoItem={deleteToDoItem}
-                changeToDoItem={changeToDoItem}
-                clearCompletedToDo={clearCompleted}
-                toggleAll={completedAllToDo}
-                ToDoNumber={Object.keys(todoList).length}
-              />
-            }
-          />
-          <Route
-            path="/completed"
-            element={
-              <Main
-                ToDoList={todoListArr.filter((item) => item.completed)}
-                completedToDoItem={completedToDoItem}
-                deleteToDoItem={deleteToDoItem}
-                changeToDoItem={changeToDoItem}
-                clearCompletedToDo={clearCompleted}
-                toggleAll={completedAllToDo}
-                ToDoNumber={Object.keys(todoList).length}
-              />
-            }
-          />
-        </Routes>
+        <Main
+          ToDoList={todoListArr}
+          hash={hash}
+          completedToDoItem={completedToDoItem}
+          deleteToDoItem={deleteToDoItem}
+          changeToDoItem={changeToDoItem}
+          clearCompletedToDo={clearCompleted}
+          toggleAll={completedAllToDo}
+        />
       </section>
       <Footer />
     </>

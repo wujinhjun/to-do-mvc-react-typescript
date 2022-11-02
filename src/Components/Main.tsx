@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IToDoItem } from "../App";
-import { useLocation } from "react-router-dom";
 import ToDo from "./ToDo";
 import { nanoid } from "nanoid";
 
 interface Props {
   ToDoList: IToDoItem[];
+  hash: string;
   completedToDoItem: (id: string) => void;
   deleteToDoItem: (id: string) => void;
   changeToDoItem: (id: string, value: string) => void;
@@ -20,15 +20,18 @@ interface ILink {
   id: string;
 }
 
+type showStatus = "all" | "active" | "completed";
+
 const linkObj: ILink[] = [
-  { route: "/", title: "All", id: nanoid() },
-  { route: "/active", title: "Active", id: nanoid() },
-  { route: "/completed", title: "Completed", id: nanoid() },
+  { route: "", title: "All", id: nanoid() },
+  { route: "#/active", title: "Active", id: nanoid() },
+  { route: "#/completed", title: "Completed", id: nanoid() },
 ];
 
 const Main = (props: Props) => {
   const {
     ToDoList,
+    hash,
     completedToDoItem,
     deleteToDoItem,
     changeToDoItem,
@@ -39,14 +42,31 @@ const Main = (props: Props) => {
 
   const [editStatus, setEditStatus] = useState<string>("");
 
-  const url: string = useLocation().pathname;
-
   const activeItemList = ToDoList.filter((item) => !item.completed);
   const completedItemList = ToDoList.filter((item) => item.completed);
+  const [showStatus, setShowStatus] = useState<showStatus>("all");
+  let todoListDisplay = ToDoList;
 
   const handleEdit = (itemID: string): void => {
     setEditStatus(itemID);
   };
+
+  if (showStatus === "active") {
+    todoListDisplay = activeItemList;
+  }
+  if (showStatus === "completed") {
+    todoListDisplay = completedItemList;
+  }
+
+  useEffect(() => {
+    if (hash.includes("active")) {
+      setShowStatus("active");
+    } else if (hash.includes("completed")) {
+      setShowStatus("completed");
+    } else {
+      setShowStatus("all");
+    }
+  }, [hash]);
 
   return (
     <>
@@ -62,7 +82,7 @@ const Main = (props: Props) => {
           <label htmlFor="toggle-all" onClick={toggleAll}></label>
         )}
         <ul className="todo-list">
-          {ToDoList.map((item) => (
+          {todoListDisplay.map((item) => (
             <ToDo
               key={item.id}
               todo={item}
@@ -84,13 +104,13 @@ const Main = (props: Props) => {
             <span> left</span>
           </span>
           <ul className="filters">
-            {linkObj.map((link) => (
-              <li key={link.id}>
+            {linkObj.map((item) => (
+              <li key={item.id}>
                 <a
-                  href={link.route}
-                  className={url === link.route ? "selected" : ""}
+                  href={item.route}
+                  className={hash === item.route ? "selected" : ""}
                 >
-                  {link.title}
+                  {item.title}
                 </a>
               </li>
             ))}

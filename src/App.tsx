@@ -75,9 +75,19 @@ function App() {
   };
 
   const completedAllToDo = () => {
-    for (const item in todoList) {
-      completedToDoItem(item);
+    const activeToDoListArr = todoListArr.filter((item) => !item.completed);
+    let afterChange;
+    if (activeToDoListArr.length === 0) {
+      afterChange = todoListArr.map((item) => {
+        return { ...item, completed: false };
+      });
+    } else {
+      afterChange = todoListArr.map((item) => {
+        return { ...item, completed: true };
+      });
     }
+    setTodoList(tranArrToObj(afterChange));
+    saveToDoList(tranArrToObj(afterChange));
   };
 
   const { hash } = useLocation();
